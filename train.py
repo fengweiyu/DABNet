@@ -240,7 +240,7 @@ def train_model(args):
         model_file_name = args.savedir + '/model_' + str(epoch + 1) + '.pth'
         state = {"epoch": epoch + 1, "model": model.state_dict()}
 
-        if epoch >= args.max_epochs - 10:
+        if epoch >= 1: #args.max_epochs - 10:
             torch.save(state, model_file_name)
         elif not epoch % 20:
             torch.save(state, model_file_name)
@@ -286,7 +286,7 @@ if __name__ == '__main__':
     parser.add_argument('--input_size', type=str, default="512,1024", help="input size of model")
     parser.add_argument('--random_mirror', type=bool, default=True, help="input image random mirror")
     parser.add_argument('--random_scale', type=bool, default=True, help="input image resize 0.5 to 2")
-    parser.add_argument('--num_workers', type=int, default=4, help=" the number of parallel threads")
+    parser.add_argument('--num_workers', type=int, default=0, help=" the number of parallel threads")
     parser.add_argument('--lr', type=float, default=4.5e-2, help="initial learning rate")
     parser.add_argument('--batch_size', type=int, default=8, help="the batch size is set to 16 for 2 GPUs")
     parser.add_argument('--savedir', default="./checkpoint/", help="directory to save the model snapshot")
