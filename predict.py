@@ -36,8 +36,8 @@ def predict(args, test_loader, model):
 
         # Save the predict greyscale output for Cityscapes official evaluation
         # Modify image name to meet official requirement
-        name[0] = name[0].rsplit('_', 1)[0] + '*'
-        save_predict(output, None, name[0], args.dataset, args.save_seg_dir,
+        new_name = name[0].rsplit('_', 1)[0]
+        save_predict(output, None, new_name, args.dataset, args.save_seg_dir,
                      output_grey=True, output_color=False, gt_color=False)
 
 
