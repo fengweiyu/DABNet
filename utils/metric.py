@@ -85,7 +85,7 @@ def get_iou(data_list, class_num, save_path=None):
 
     ConfM = ConfusionMatrix(class_num)
     f = ConfM.generateM
-    pool = Pool()
+    pool = Pool(1)  # 使用单进程避免启动多个CMD窗口
     m_list = pool.map(f, data_list)
     pool.close()
     pool.join()
