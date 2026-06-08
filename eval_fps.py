@@ -46,8 +46,16 @@ if __name__ == '__main__':
     parser.add_argument('--iter', type=int, default=100)
     parser.add_argument('--model', type=str, default='DABNet')
     parser.add_argument("--gpus", type=str, default="0", help="gpu ids (default: 0)")
+    parser.add_argument('--checkpoint', type=str, default='', help="path to trained model checkpoint")
     args = parser.parse_args()
 
     h, w = map(int, args.size.split(','))
     model = build_model(args.model, num_classes=args.classes)
+    
+    # Load trained checkpoint if provided
+    if args.checkpoint:
+        checkpoint = torch.load(args.checkpoint)
+        model.load_state_dict(checkpoint['model'])
+        print(f"Loaded checkpoint from: {args.checkpoint}")
+    
     compute_speed(model, (args.batch_size, args.num_channels, h, w), int(args.gpus), iteration=args.iter)
