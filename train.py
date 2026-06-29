@@ -77,12 +77,12 @@ def train(args, train_loader, model, criterion, optimizer, epoch):
         images, labels, _, _ = batch
         images = Variable(images).cuda()
         labels = Variable(labels.long()).cuda()
+        optimizer.zero_grad()  # set the grad to zero
         output = model(images)
         loss = criterion(output, labels)
-        scheduler.step()
-        optimizer.zero_grad()  # set the grad to zero
         loss.backward()
         optimizer.step()
+        scheduler.step()
         epoch_loss.append(loss.item())
         time_taken = time.time() - start_time
 
